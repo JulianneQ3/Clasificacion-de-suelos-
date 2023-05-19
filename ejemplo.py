@@ -5,7 +5,7 @@ product_data = {
     "tamiz": ["4", "8", "10", "20", "40", "100", "200", "FONDO", "LIMITE LIQUIDO", "INDICE DE PLASTICIDAD"],
 }
 
-new_column = {"50": [0], "80": [0], "120": [0]}
+new_column = {"1": [0], "2": [0], "3": [0]}
 
 df_product = pd.DataFrame(product_data)
 df_new_column = pd.DataFrame(new_column)

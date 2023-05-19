@@ -8,7 +8,7 @@ izquierda = dbc.Container(
     [
          dbc.Row(
         [
-            dbc.Col('input', md=12, style={'background-color':'brown'}),
+            dbc.Col('De acuerdo a la cantidad de ensayos realizados en laboratorio, agregue la cantidad de columnas necesarias. Luego ingrese los porcentajes pasa. Recuerde que este código clasifica suelos finos por tanto, debe ingresar también el límite líquido y el indice de plasticidad.', md=12, style={'background-color':'brown'}),
             dbc.Col(table,md=12, style={'background-color':'white'}),
             dbc.Col('conclusiones',md=12, style={'background-color':'orange'})
         ]
