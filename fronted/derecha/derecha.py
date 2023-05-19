@@ -2,8 +2,9 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 #importar componentes de la parte derecha
-from .graficas.curva_granulometrica import curva_granulometrica
+from .graficas.curva_granulometrica import *
 from .graficas.cartaplasticidad import cartaplasticidad
+from backend.curva_granulometrica import *
 
 derecha = dbc.Container(
     [
@@ -11,17 +12,10 @@ derecha = dbc.Container(
         [
             dbc.Col(curva_granulometrica, md=12, style={'background-color':'skyblue'}),
 
-            html.Hr(),
-
-                html.Div(
-                [
-                    html.Label('pasa'),
-                   
-                    html.Label('abertura'),
-                                      
-                    html.Div(id='salidaCurvaGranulometrica')
-                ]
-                ),
+            html.Div([
+                html.Img(id='graph-image'),
+                dcc.Interval(id='interval', interval=5000, n_intervals=0)
+            ]),
 
             dbc.Col(cartaplasticidad,md=12, style={'background-color':'gray'}),
 

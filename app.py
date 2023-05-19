@@ -12,6 +12,7 @@ from fronted.main import layout
 #import backend
 from backend.cartaplasticidad import cartaPlasticidad
 from backend.tablatamices import *
+from backend.curva_granulometrica import *
 
 app = dash.Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -55,21 +56,14 @@ def add_column(n_clicks):
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #calculamos la curva granulométrica
+
+# Actualizar la imagen en intervalos regulares
 @app.callback(
-    Output('salidaCurvaGranulometrica', 'children'),
-    Input('pasa', 'value'),
-    Input('abertura', 'value')
+    dash.dependencies.Output('graph-image', 'src'),
+    dash.dependencies.Input('interval', 'n_intervals')
 )
-
-def curvaGranulometrica():
-    #retrasar la página un segundo
-    # time.sleep(1)
-    encoded_image_ = curvaGranulometrica()
-
-    image_element = html.Img(src="data:image/png;base64,{}".format(encoded_image_))
- 
-    return html.Div([image_element])
-
+def update_graph_image(n):
+    return 'data:image/png;base64,{}'.format(image_base64)
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------
