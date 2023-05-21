@@ -20,7 +20,7 @@ x2_formatted = '{:.2f}'.format(x2_coord)
 x3_formatted = '{:.2f}'.format(x3_coord)
 
 # Crear la figura y agregar los elementos gráficos
-fig, ax = plt.subplots(figsize=(14, 4))
+fig, ax = plt.subplots(figsize=(8, 2.5))
 
 ax.plot(abertura, pasa, linestyle='-', marker='o', color='k', fillstyle='none', label='Data')
 

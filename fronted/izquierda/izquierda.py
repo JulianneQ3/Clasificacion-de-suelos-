@@ -24,23 +24,32 @@ diseno = html.Div([
         html.Button('Add Column', id='editing-columns-button', n_clicks=0)
     ], style={'height': 50}),
 
-    dash_table.DataTable(
-        id='editing-columns',
-        columns=[{
-            'name': 'Tamiz',
-            'id': 'tamiz',
-            'editable': False,
-            'renamable': False
-        }] + [{
-            'name': 'Ensayo {}'.format(i),
-            'id': 'ensayo-{}'.format(i),
-            'deletable': True,
-            'renamable': True
-        } for i in range(0, 50)],
-        data=df_product.to_dict("records"),
-        editable=True,
-    ),
-    html.Div(id='editing-prune-data-output'),
+    html.Div([
+        html.Div(
+            dash_table.DataTable(
+                id='editing-columns',
+                columns=[{
+                    'name': 'Tamiz',
+                    'id': 'tamiz',
+                    'editable': False,
+                    'renamable': False
+                }] + [{
+                    'name': 'Ensayo {}'.format(i),
+                    'id': 'ensayo-{}'.format(i),
+                    'deletable': True,
+                    'renamable': True
+                } for i in range(0, 50)],
+                data=df_product.to_dict("records"),
+                editable=True,
+            ),
+            style={'overflowX': 'auto', 'maxWidth': '100%'}
+        )
+    ], style={'width': '100%', 'float': 'left'}),
+
+    html.Div(id='editing-prune-data-output', style={'width': '100%', 'float': 'right'}),
+
+    html.Div(style={'clear': 'both'}),
+
     html.Hr(),
     html.Hr(),
     html.Hr(),
