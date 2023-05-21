@@ -7,16 +7,19 @@ import numpy as np
 import io
 import base64
 
+
 def cartaPlasticidad(Limite_liquido, Indice_plasticidad):
 
     plt.figure()
 
     # Con los datos del limite liquido y el Indice de plasticidad se grafica la ubicación del suelo en la carta de plasticidad.
-    plt.plot(Limite_liquido,Indice_plasticidad,'ro')
-    plt.vlines(Limite_liquido,0,60,'k','--')
-    plt.annotate(' LL ',(Limite_liquido,55))
-    plt.annotate(' IP ', (20,Indice_plasticidad + 2))
-    plt.hlines(Indice_plasticidad,0,100,'k','--')
+     # Convertir listas en arreglos numpy
+    Limite_liquido = np.array(Limite_liquido)
+    Indice_plasticidad = np.array(Indice_plasticidad)
+    if Limite_liquido.size > 0 and Indice_plasticidad.size > 0:
+        plt.plot(Limite_liquido, Indice_plasticidad, 'ro')
+
+
 
     # Se establecen los limites de los ejes x,y.
     plt.xlim(0,100)
@@ -36,38 +39,6 @@ def cartaPlasticidad(Limite_liquido, Indice_plasticidad):
     # Graficamos lineas frontera de la carta de plasticidad donde se encuentran los suelos CL-ML
     plt.hlines(7,15.7,29.5,'m')
     plt.hlines(4,12.4,25.5,'m')
-
-    # Estas lineas permiten que se muestren en la gráfica las etiquetas de las diferentes zonas.
-
-    region_MH = np.array([[50,0], [50,22], [100,58], [100,0]])
-    region_ML = np.array([[25.5,4], [12.4,4], [8,0], [20,0], [50,0], [50,22]])
-    region_CH = np.array([[50,22], [100,58], [100,60], [75,60], [50,38]])
-    region_CL_ML = np.array([[29.5,7], [15.7,7], [12.4,4], [25.5,4]])
-    region_CL = np.array([[15.7,7], [29.5,7], [50,22], [50,38]])
-
-    path_MH = mpath.Path(region_MH)
-    path_CH = mpath.Path(region_CH)
-    path_CL = mpath.Path(region_CL)
-    path_CL_ML = mpath.Path(region_CL_ML)
-    path_ML = mpath.Path(region_ML)
-
-
-    messages = []  # Lista para almacenar los mensajes
-
-
-    point = np.array([Limite_liquido,Indice_plasticidad])
-    if path_MH.contains_point(point):
-        messages.append('El punto se encuentra en la zona MH')
-    elif path_CH.contains_point(point):
-        messages.append('El punto se encuentra en la zona CH')
-    elif path_CL.contains_point(point):
-        messages.append('El punto se encuentra en la zona CL')
-    elif path_CL_ML.contains_point(point):
-        messages.append('El punto se encuentra en la zona CL-ML')
-    elif path_ML.contains_point(point):
-        messages.append('El punto se encuentra en la zona ML')
-    else:
-        messages.append('El punto no se encuentra en la carta de plasticidad')
 
     plt.annotate('CL-ML', (15,5))
     plt.annotate('MH', (80,20))
@@ -114,8 +85,5 @@ def cartaPlasticidad(Limite_liquido, Indice_plasticidad):
 
     encoded_image = base64.b64encode(fig_buffer.getvalue()).decode()
 
-    # Convertir la lista de mensajes en una cadena separada por saltos de línea
-    messages_str = '\n'.join(messages)
-
     # Crear la figura HTML con Dash
-    return encoded_image, messages_str
+    return encoded_image

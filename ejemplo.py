@@ -73,6 +73,31 @@ def add_column(n_clicks):
 
     return no_update
 
+def extract_data(table_data):
+    # Procesar los datos extraídos de la tabla
+    if table_data:
+        df_table_data = pd.DataFrame(table_data)
+        # Aquí puedes realizar las operaciones necesarias con los datos
+        # ...
+
+        # Puedes devolver los datos procesados como un componente HTML
+        return html.Table(
+            [
+                html.Thead(
+                    html.Tr([html.Th(col) for col in df_table_data.columns])
+                ),
+                html.Tbody(
+                    [
+                        html.Tr([html.Td(df_table_data.iloc[i][col]) for col in df_table_data.columns])
+                        for i in range(len(df_table_data))
+                    ]
+                ),
+            ]
+        )
+
+    # Si no hay datos en la tabla, devolver un mensaje o componente vacío
+    return "No hay datos disponibles"
+
 
 if __name__ == "__main__":
     app.run_server(debug=True)
