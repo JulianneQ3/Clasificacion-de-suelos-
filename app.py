@@ -11,6 +11,7 @@ from fronted.main import layout
 from backend.cartaplasticidad import cartaPlasticidad
 from fronted.izquierda.izquierda import *
 from backend.curva_granulometrica import *
+from fronted.derecha.derecha import *
 
 app = dash.Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -19,31 +20,6 @@ app.layout = layout
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#desarrollamos la tabla de tamices
-
-@app.callback(
-    Output('editing-columns', 'columns'),
-    Input('editing-columns-button', 'n_clicks'),
-    State('editing-columns-name', 'value'),
-    State('editing-columns', 'columns'))
-def update_columns(n_clicks, value, existing_columns):
-    if n_clicks > 0:
-        new_column = {
-            'id': value, 'name': value,
-            'renamable': True, 'deletable': True,
-        }
-        existing_columns.append(new_column)
-        
-        # Agregar nueva columna al dataframe
-        df_product[value] = ""
-        
-    return existing_columns
-
-
-
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-#calculamos la curva granulométrica
 
 # Actualizar la imagen en intervalos regulares
 @app.callback(
@@ -87,7 +63,7 @@ def display_output(columns):
     encoded_image = cartaPlasticidad(limite_liquido, indice_plasticidad)
     image_element = html.Img(src="data:image2/png;base64,{}".format(encoded_image))
     
-    return html.Div([image_element])
+    return html.Div([image_element], style={'text-align': 'center'})
 
 if __name__ == '__main__':
     app.run_server(debug=True)

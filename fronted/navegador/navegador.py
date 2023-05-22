@@ -3,6 +3,6 @@ import dash_bootstrap_components as dbc
 
 navegador = dbc.Container(
     [
-        html.H1('CLASIFICACIÓN DE SUELOS POR EL MÉTODO USCS')
+        html.H1('CLASIFICACIÓN DE SUELOS POR EL MÉTODO USCS', style={'text-align': 'center'})
     ]
 )

@@ -1,5 +1,4 @@
 import dash
-import dash_core_components as dcc
 import dash_html_components as html
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
@@ -33,7 +32,7 @@ ax.scatter(x3_coord, y3_coord, marker='>', s=50, color='k', label='D10=' + x3_fo
 
 ax.set_xlabel('Diámetro (mm)')
 ax.set_ylabel('Porcentaje pasa acumulado (%)')
-ax.set_title('Curva granulométrica')
+ax.set_title('Curva Granulométrica')
 ax.legend()
 ax.set_xscale("log")
 ax.set_xlim(0.075, 4.75)

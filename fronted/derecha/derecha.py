@@ -25,7 +25,7 @@ derecha = dbc.Container(
             html.Div(
                 html.Div([
                 html.Div(id='editing-prune-data-output', style={'margin-top': '20px'}),
-            ], style={'width': '50%', 'display': 'inline-block', 'vertical-align': 'top'}),
+            ], style={'width': '100%', 'display': 'inline-block', 'align-items': 'center', 'justify-content': 'center'}),
             
             ),
         ]
