@@ -53,6 +53,9 @@ diseno = html.Div([
     html.Hr(),
     html.Hr(),
     html.Hr(),
+
+    # Elemento para mostrar el diccionario de la columna 3
+    html.Div(id='column-3-data'),
 ])
 
 izquierda = dbc.Container(

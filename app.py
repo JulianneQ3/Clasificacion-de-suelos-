@@ -18,16 +18,52 @@ app = dash.Dash(__name__,external_stylesheets=[dbc.themes.BOOTSTRAP])
 #
 app.layout = layout
 
+
+@app.callback(
+    Output('editing-columns', 'columns'),
+    Input('editing-columns-button', 'n_clicks'),
+    State('editing-columns-name', 'value'),
+    State('editing-columns', 'columns'))
+def update_columns(n_clicks, value, existing_columns):
+    if n_clicks > 0:
+        new_column = {
+            'id': value, 'name': value,
+            'renamable': True, 'deletable': True,
+        }
+        existing_columns.append(new_column)
+        
+        # Agregar nueva columna al dataframe
+        df_product[value] = ""
+        
+    return existing_columns
+
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 # Actualizar la imagen en intervalos regulares
+
 @app.callback(
     dash.dependencies.Output('graph-image', 'src'),
     dash.dependencies.Input('interval', 'n_intervals')
 )
 def update_graph_image(n):
     return 'data:image/png;base64,{}'.format(image_base64)
+
+#Extraer información de la columna 3
+
+@app.callback(Output('column-3-data', 'children'),
+              Input('editing-columns', 'data'))
+def display_column_3_data(columns):
+    column_3_data = {}
+    
+    for row in columns:
+        if 'ensayo-3' in row:
+            value = row['ensayo-3']
+            if value is not None and value != 'None':
+                value = value.strip("'")
+                column_3_data[row['tamiz']] = value
+    
+    return html.Pre(str(column_3_data))
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------
